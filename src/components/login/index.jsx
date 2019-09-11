@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 
 import {Form, Icon, Input, Button, message} from 'antd';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {saveUser} from '@redux/action-creators'
 
 import logo from './logo.png';
 import './index.less';
-
+@connect(
+    null,
+   { saveUser}
+)
 @Form.create()
 class Login extends Component {
     //自定义校验将表单的方法
@@ -38,6 +43,9 @@ class Login extends Component {
                         if (response.data.status === 0) {
                             //登录成功
                             message.success('登录成功了~');
+                            //跳转之前保存用户数据到redux中，localStorage/sessionStorage
+                            this.props.saveUser(response.data.data);
+                            //跳转到home组件
                             this.props.history.replace('/');
 
                         } else {
@@ -48,6 +56,9 @@ class Login extends Component {
                     .catch((error) => {
                         //请求失败-登录失败
                         message.error('未知错误，请联系管理人员');
+                    })
+                    .finally(()=>{
+                        this.props.form.resetFields(['password'])
                     })
             }
         })
