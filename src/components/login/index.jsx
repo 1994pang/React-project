@@ -1,19 +1,27 @@
 import React, {Component} from 'react';
-
+// import instance from '../../api/request';
 import {Form, Icon, Input, Button, message} from 'antd';
-import axios from 'axios';
+// import axios from 'axios';
+import {reqLogin} from '../../api';
 import {connect} from 'react-redux';
 import {saveUser} from '@redux/action-creators'
 
 import logo from './logo.png';
 import './index.less';
+import {useBabelRc} from "customize-cra";
+
 @connect(
     null,
-   { saveUser}
+    {saveUser}
 )
 @Form.create()
 class Login extends Component {
-    //自定义校验将表单的方法
+    /**
+     * 自定义表单校验的方法
+     * @param rule 包含表单项字段
+     * @param value 表单项的值
+     * @param callback 当callback传参时，说明校验失败，并提示传入参数。 当callback没有参数，说明校验成功
+     */
     validator = (rule, value, callback) => {
         const name = rule.field === 'username' ? '用户名' : '密码';
         if (!value) {
@@ -29,42 +37,40 @@ class Login extends Component {
         if (!reg.test(value)) {
             return callback(`${name}只能为英文字母，数字，下划线`)
         }
+        // callback必须调用
         callback();
     };
-//登录验证函数
+//登录函数
     login = (e) => {
         e.preventDefault();
+        // 校验表单
         this.props.form.validateFields((err, values) => {
-            if (!err) {
+            if (!error) {
                 //如果校验成功，拿到表单数据，发送请求
                 const {username, password} = values;
-                axios.post('http://localhost:3000/api/login', {username, password})
-                    .then((response) => {
-                        if (response.data.status === 0) {
-                            //登录成功
-                            message.success('登录成功了~');
-                            //跳转之前保存用户数据到redux中，localStorage/sessionStorage
-                            this.props.saveUser(response.data.data);
-                            //跳转到home组件
-                            this.props.history.replace('/');
 
-                        } else {
-                            //登录失败了
-                            message.error(response.data.msg);
-                        }
+                reqLogin(username, password)
+                    .then((result) => {
+                        //登录成功
+                        message.success('登录成功了~');
+                        //跳转之前保存用户数据到redux中，localStorage/sessionStorage
+                        this.props.saveUser(result);
+                        //跳转到home组件
+                        this.props.history.replace('/');
+
                     })
-                    .catch((error) => {
-                        //请求失败-登录失败
-                        message.error('未知错误，请联系管理人员');
-                    })
-                    .finally(()=>{
+                    .catch(() => {
+
+                        // 清空密码
                         this.props.form.resetFields(['password'])
+
                     })
             }
         })
     };
 
     render() {
+        // getFieldDecorator 专门表单校验的方法。 高阶组件
         const {getFieldDecorator} = this.props.form;
         return <div className="login">
             <header className="login-header">
