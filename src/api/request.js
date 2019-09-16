@@ -42,7 +42,7 @@ instance.interceptors.response.use(
     },
     // 请求失败 --> 响应状态码 400 500
     (error)=>{
-        console.log('axios请求失败：', error)
+        console.log('axios请求失败：', error);
        message.error('未知错误，请联系管理员~') ;
 
     return Promise.reject('未知错误，请联系管理员~');}

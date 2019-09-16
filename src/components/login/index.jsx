@@ -4,12 +4,12 @@ import {Form, Icon, Input, Button, message} from 'antd';
 // import axios from 'axios';
 import {reqLogin} from '../../api';
 import {connect} from 'react-redux';
-import {saveUser} from '@redux/action-creators'
+import {saveUser} from '@redux/action-creators';
+import withCheckLogin from  '../with-check-login';
 
 import logo from './logo.png';
 import './index.less';
-import {useBabelRc} from "customize-cra";
-
+@withCheckLogin
 @connect(
     null,
     {saveUser}
@@ -44,11 +44,10 @@ class Login extends Component {
     login = (e) => {
         e.preventDefault();
         // 校验表单
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((error, values) => {
             if (!error) {
                 //如果校验成功，拿到表单数据，发送请求
                 const {username, password} = values;
-
                 reqLogin(username, password)
                     .then((result) => {
                         //登录成功
