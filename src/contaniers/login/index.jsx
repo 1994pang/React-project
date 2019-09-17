@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-// import instance from '../../api/request';
 import {Form, Icon, Input, Button, message} from 'antd';
-// import axios from 'axios';
 import {reqLogin} from '../../api';
 import {connect} from 'react-redux';
 import {saveUser} from '@redux/action-creators';
-import withCheckLogin from  '../with-check-login';
+import withCheckLogin from '../with-check-login';
 
-import logo from './logo.png';
+import logo from '../../assets/image/logo.png';
 import './index.less';
 @withCheckLogin
 @connect(
