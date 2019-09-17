@@ -7,6 +7,7 @@ import withCheckLogin from '../with-check-login';
 
 import logo from '../../assets/image/logo.png';
 import './index.less';
+
 @withCheckLogin
 @connect(
     null,

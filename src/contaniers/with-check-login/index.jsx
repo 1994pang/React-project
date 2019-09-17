@@ -25,8 +25,8 @@ function withCheckLogin(WrappedComponent) {
      ...rest
  }=this.props;
  const{location:{pathname}}=rest;
- if(pathname==='./login'&& token) return <Redirect to="/"/>;
- if(pathname !=='./login' && !token) return<Redirect to='./login'/>;
+ if(pathname==='/login'&& token) return <Redirect to="/"/>;
+ if(pathname !=='/login' && !token) return<Redirect to='/login'/>;
  return <WrappedComponent {...rest}/>
        }
     })

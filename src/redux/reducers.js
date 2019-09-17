@@ -3,7 +3,7 @@
 * */
 import {combineReducers} from 'redux';
 import {SAVE_USER} from './action-types';
-import {setItem, getItem} from '../utils/storage'
+import {setItem, getItem} from '../utils/storage';
 //初始化数据
 const initUser = {
     user: getItem('user') || {},

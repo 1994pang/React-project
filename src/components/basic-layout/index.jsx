@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Layout, Breadcrumb} from 'antd';
-
+import withCheckLogin from '@conts/with-check-login';
 import LeftNav from './left-nav';
 import logo from '../../assets/image/logo.png';
 import './index.less';
@@ -9,7 +9,7 @@ const {Header, Content, Footer, Sider} = Layout;
 
 // const { SubMenu } = Menu;
 
-
+@withCheckLogin
 class BasicLayout extends Component {
     state = {
         collapsed: false,
