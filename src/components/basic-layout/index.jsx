@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Layout, Breadcrumb} from 'antd';
+import { Layout } from 'antd';
+import { withTranslation } from 'react-i18next'
 import withCheckLogin from '@conts/with-check-login';
 import HeaderMain from  './header-main';
 import LeftNav from './left-nav';
@@ -9,9 +10,10 @@ import './index.less';
 const {Header, Content, Footer, Sider} = Layout;
 
 // const { SubMenu } = Menu;
-
-@withCheckLogin
+@withTranslation()
+    @withCheckLogin
 class BasicLayout extends Component {
+
     state = {
         collapsed: false,
         isDisplay: true
@@ -29,11 +31,12 @@ class BasicLayout extends Component {
 
     render() {
         const {collapsed, isDisplay} = this.state;
+        const {t}=this.props;
         return <Layout style={{minHeight:'100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
                 <div className="basic-layout-logo">
                     <img src={logo} alt="logo"/>
-                    <h1 style={{display: isDisplay ? 'block' : 'none'}}>硅谷后台</h1>
+                    <h1 style={{display: isDisplay ? 'block' : 'none'}}>{t('title')}</h1>
                 </div>
                 <LeftNav/>
             </Sider>

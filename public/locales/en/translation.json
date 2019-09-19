@@ -1,0 +1,15 @@
+{
+  "title": "guiGu",
+  "menus": {
+    "home": "Home",
+    "products": "Products",
+    "category": "Category",
+    "product": "Product",
+    "user": "user",
+    "role": "Role",
+    "charts": "charts",
+    "line": "Line",
+    "bar": "bar",
+    "pie": "pie"
+  }
+}
